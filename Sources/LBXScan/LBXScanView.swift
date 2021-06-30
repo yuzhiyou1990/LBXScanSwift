@@ -28,9 +28,6 @@ open class LBXScanView: UIView {
     // 启动相机时 菊花等待
     var activityView: UIActivityIndicatorView?
 
-    // 启动相机中的提示文字
-    var labelReadying: UILabel?
-
     // 记录动画状态
     var isAnimationing = false
     
@@ -338,24 +335,12 @@ open class LBXScanView: UIView {
         if activityView == nil {
             activityView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 
-            activityView?.center = CGPoint(x: XRetangleLeft + sizeRetangle.width / 2 - 50, y: YMinRetangle + sizeRetangle.height / 2)
+            activityView?.center = CGPoint(x: XRetangleLeft + sizeRetangle.width / 2, y: YMinRetangle + sizeRetangle.height / 2)
             activityView?.style = UIActivityIndicatorView.Style.whiteLarge
 
             addSubview(activityView!)
-
-            let labelReadyRect = CGRect(x: activityView!.frame.origin.x + activityView!.frame.size.width + 10,
-                                        y: activityView!.frame.origin.y,
-                                        width: 100,
-                                        height: 30)
-            labelReadying = UILabel(frame: labelReadyRect)
-            labelReadying?.text = readyStr
-            labelReadying?.backgroundColor = UIColor.clear
-            labelReadying?.textColor = UIColor.white
-            labelReadying?.font = UIFont.systemFont(ofSize: 18.0)
-            addSubview(labelReadying!)
         }
 
-        addSubview(labelReadying!)
         activityView?.startAnimating()
     }
     
@@ -363,10 +348,8 @@ open class LBXScanView: UIView {
         if activityView != nil {
             activityView?.stopAnimating()
             activityView?.removeFromSuperview()
-            labelReadying?.removeFromSuperview()
 
             activityView = nil
-            labelReadying = nil
         }
     }
 
