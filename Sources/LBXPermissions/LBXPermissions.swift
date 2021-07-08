@@ -10,9 +10,27 @@ import UIKit
 import AVFoundation
 import Photos
 import AssetsLibrary
+import CoreTelephony
 
 public class LBXPermissions: NSObject {
-
+    
+    public static func authorizeNetworkWith(completion: @escaping (Bool) -> Void) {
+        let cellularData = CTCellularData()
+        cellularData.cellularDataRestrictionDidUpdateNotifier = { state in
+            if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+        let state = cellularData.restrictedState
+        if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+            completion(false)
+        } else {
+            completion(true)
+        }
+    }
+    
     public static func authorizePhotoWith(completion: @escaping (Bool) -> Void) {
         let granted = PHPhotoLibrary.authorizationStatus()
         switch granted {
