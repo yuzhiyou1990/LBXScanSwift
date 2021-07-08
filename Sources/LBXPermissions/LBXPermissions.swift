@@ -17,14 +17,14 @@ public class LBXPermissions: NSObject {
     public static func authorizeNetworkWith(completion: @escaping (Bool) -> Void) {
         let cellularData = CTCellularData()
         cellularData.cellularDataRestrictionDidUpdateNotifier = { state in
-            if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+            if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.restricted {
                 completion(false)
             } else {
                 completion(true)
             }
         }
         let state = cellularData.restrictedState
-        if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.notRestricted {
+        if state == CTCellularDataRestrictedState.restrictedStateUnknown ||  state == CTCellularDataRestrictedState.restricted {
             completion(false)
         } else {
             completion(true)
