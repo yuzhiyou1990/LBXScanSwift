@@ -9,7 +9,6 @@
 import UIKit
 import AVFoundation
 import Photos
-import AssetsLibrary
 import CoreTelephony
 
 public class LBXPermissions: NSObject {
